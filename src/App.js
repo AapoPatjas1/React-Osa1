@@ -2,21 +2,17 @@ const Header = (props) => {
   return <h1> {props.otsikko} </h1>
 }
 
-
+const Part = (props) => {
+  console.log(props)
+  return <p> {props.lol} {props.kukka} </p>
+}
 
 const Content = (props) => {
-  console.log(props)
   return (
     <div>
-      <p>
-      {props.part1} {props.sigmaballs}
-    </p>
-    <p>
-      {props.part2} {props.juhanishorman}
-    </p>
-    <p>
-      {props.part3} {props.poopypant}
-    </p>
+      <Part lol={props.part1} kukka={props.sigmaballs} />
+      <Part lol={props.part2} kukka={props.juhanishorman}/>
+      <Part lol={props.part3} kukka={props.poopypant}/>
     </div>
   )
 }
