@@ -17,6 +17,10 @@ const App = () => {
     setBad(bad + 1);
   };
 
+  const total = good + neutral + bad;
+  const average = (good - bad) / total || 0;
+  const positivePercentage = (good / total) * 100 || 0;
+
   return (
     <div>
       <h1>Unicafe Asiakaspalaute</h1>
@@ -28,6 +32,11 @@ const App = () => {
       <p>Hyvä: {good}</p>
       <p>Neutraali: {neutral}</p>
       <p>Huono: {bad}</p>
+
+      <h2>Statistiikka</h2>
+      <p>Yhteensä: {total}</p>
+      <p>Keskiarvo: {average.toFixed(2)}</p>
+      <p>Positiivisia: {positivePercentage.toFixed(2)} %</p>
     </div>
   );
 };
