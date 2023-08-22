@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
+const Button = (props) =>{
+  return (
+    <button onClick={props.moi}>{props.text}</button>
+    
+  )
+}
+const StatisticLine = (props) =>{
+return (
+  <p>{props.text} {props.value}</p>
+
+)
+}
 const Statistics = (props) => {
-  console.log(props);
   return(
     <div>
       <h2>Statistiikka</h2>
-      <p>Yhteensä: {props.total}</p>
-      <p>Keskiarvo: {props.average.toFixed(2)}</p>
-      <p>Positiivisia: {props.positivePercentage.toFixed(2)} %</p>
+      <StatisticLine text="good" value ={props.total} />
+      <StatisticLine text="neutral" value ={props.average} />
+      <StatisticLine text="bad" value ={props.positivePercentage} />
+     
     </div>
   )
 }
@@ -33,9 +45,9 @@ const App = () => {
   const positivePercentage = (good / total) * 100 || 0;
   if (good == 0&&neutral == 0&&bad == 0) {
     return ( <div><h1>Unicafe Asiakaspalaute</h1>
-    <button onClick={handleGoodClick}>Hyvä</button>
-    <button onClick={handleNeutralClick}>Neutraali</button>
-    <button onClick={handleBadClick}>Huono</button>
+     <Button text="Hyvä" moi={handleGoodClick}/>
+    <Button text="Neutraali" moi={handleNeutralClick}/>
+        <Button text="Huono" moi={handleBadClick}/>
     <h1>Statistics</h1>
     <p>no feedback given</p>
     </div>
@@ -44,21 +56,24 @@ const App = () => {
     return (
       <div>
         <h1>Unicafe Asiakaspalaute</h1>
-        <button onClick={handleGoodClick}>Hyvä</button>
-        <button onClick={handleNeutralClick}>Neutraali</button>
-        <button onClick={handleBadClick}>Huono</button>
-        
+
+        <Button text="Hyvä" moi={handleGoodClick}/>
+        <Button text="Neutraali" moi={handleNeutralClick}/>
+        <Button text="Huono" moi={handleBadClick}/>
+
+       
+      
+
         <h2>Palautteet</h2>
-        <p>Hyvä: {good}</p>
-        <p>Neutraali: {neutral}</p>
-        <p>Huono: {bad}</p>
-  
-        <Statistics 
+        <StatisticLine text="Hyvä" value={good} />
+        <StatisticLine text="Neutraali" value={neutral} />
+        <StatisticLine text="Huono" value={bad} />
+        
+      <Statistics 
         average={average}
         total={total}
         positivePercentage={positivePercentage}
-        />
-  
+      />
       </div>
     );
   }
