@@ -31,27 +31,39 @@ const App = () => {
   const total = good + neutral + bad;
   const average = (good - bad) / total || 0;
   const positivePercentage = (good / total) * 100 || 0;
-
-  return (
-    <div>
-      <h1>Unicafe Asiakaspalaute</h1>
-      <button onClick={handleGoodClick}>Hyvä</button>
-      <button onClick={handleNeutralClick}>Neutraali</button>
-      <button onClick={handleBadClick}>Huono</button>
-
-      <h2>Palautteet</h2>
-      <p>Hyvä: {good}</p>
-      <p>Neutraali: {neutral}</p>
-      <p>Huono: {bad}</p>
-
-      <Statistics 
-      average={average}
-      total={total}
-      positivePercentage={positivePercentage}
-      />
-
+  if (good == 0&&neutral == 0&&bad == 0) {
+    return ( <div><h1>Unicafe Asiakaspalaute</h1>
+    <button onClick={handleGoodClick}>Hyvä</button>
+    <button onClick={handleNeutralClick}>Neutraali</button>
+    <button onClick={handleBadClick}>Huono</button>
+    <h1>Statistics</h1>
+    <p>no feedback given</p>
     </div>
-  );
+    )
+  } else {
+    return (
+      <div>
+        <h1>Unicafe Asiakaspalaute</h1>
+        <button onClick={handleGoodClick}>Hyvä</button>
+        <button onClick={handleNeutralClick}>Neutraali</button>
+        <button onClick={handleBadClick}>Huono</button>
+        
+        <h2>Palautteet</h2>
+        <p>Hyvä: {good}</p>
+        <p>Neutraali: {neutral}</p>
+        <p>Huono: {bad}</p>
+  
+        <Statistics 
+        average={average}
+        total={total}
+        positivePercentage={positivePercentage}
+        />
+  
+      </div>
+    );
+  }
+
+  
 };
 
 export default App;
