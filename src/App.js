@@ -1,4 +1,15 @@
 import React, { useState } from 'react';
+const Statistics = (props) => {
+  console.log(props);
+  return(
+    <div>
+      <h2>Statistiikka</h2>
+      <p>Yhteensä: {props.total}</p>
+      <p>Keskiarvo: {props.average.toFixed(2)}</p>
+      <p>Positiivisia: {props.positivePercentage.toFixed(2)} %</p>
+    </div>
+  )
+}
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -33,10 +44,12 @@ const App = () => {
       <p>Neutraali: {neutral}</p>
       <p>Huono: {bad}</p>
 
-      <h2>Statistiikka</h2>
-      <p>Yhteensä: {total}</p>
-      <p>Keskiarvo: {average.toFixed(2)}</p>
-      <p>Positiivisia: {positivePercentage.toFixed(2)} %</p>
+      <Statistics 
+      average={average}
+      total={total}
+      positivePercentage={positivePercentage}
+      />
+
     </div>
   );
 };
