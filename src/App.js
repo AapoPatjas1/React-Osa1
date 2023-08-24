@@ -1,108 +1,28 @@
-import { toBeDisabled } from '@testing-library/jest-dom/matchers';
-import React, { useState } from 'react';
-const Button = (props) =>{
-  return (
-    <button onClick={props.moi}>{props.text}</button>
-    
-  )
-}
-const StatisticLine = (props) =>{
-return (
-  <p>{props.text} {props.value}</p>
-
-)
-
-}
-const Statistics = (props) => {
-  return(
-    <div>
-      <StatisticLine text="all" value ={props.total} />
-      <StatisticLine text="average" value ={props.average} />
-      <StatisticLine text="positive" value ={props.positivePercentage} />
-     </div>
-  )
-}
+import { useState } from 'react'
 
 const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-
-  const handleGoodClick = () => {
-    setGood(good + 1);
-  };
-
-  const handleNeutralClick = () => {
-    setNeutral(neutral + 1);
-  };
-
-  const handleBadClick = () => {
-    setBad(bad + 1);
-  };
-
-  const total = good + neutral + bad;
-  const average = (good - bad) / total || 0;
-  const positivePercentage = (good / total) * 100 || 0;
-  if (good == 0&&neutral == 0&&bad == 0) {
-    return ( 
-      <table>
-        <thead>
-          <tr>
-            <td>
-        <h1>Unicafe Asiakaspalaute</h1>
-        <Button text="Hyvä" moi={handleGoodClick}/>
-        <Button text="Neutraali" moi={handleNeutralClick}/>
-        <Button text="Huono" moi={handleBadClick}/>
-        <h1>Statistics</h1>
-        no feedback given
-        </td>
-            </tr>
-        </thead>
-      </table>
-    )
-  } else {
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <h1>give feedback</h1>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-            <Button text="Hyvä" moi={handleGoodClick}/>
-            <Button text="Neutraali" moi={handleNeutralClick}/>
-            <Button text="Huono" moi={handleBadClick}/>
-            </td>
-          </tr>
-      
-          
-        <tr>
-          <th>
-           <h1>Statistiikat</h1>
-          </th>
-        </tr>        
-        <tr>
-          <td>
-        <StatisticLine text="Hyvä" value={good} />
-        <StatisticLine text="Neutraali" value={neutral} />
-        <StatisticLine text="Huono" value={bad} />
-        <Statistics 
-          average={average}
-          total={total}
-          positivePercentage={positivePercentage}/>
-              </td>
-          </tr>
-      </tbody>
-      
-      </table>
-    );
-
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
+    'The only way to go fast, is to go well.'
+  ]
+   
+  const [selected, setSelected] = useState(0)
+  const nappula = () => {
+    const numero = Math.floor(Math.random() * anecdotes.length)
+    setSelected(numero)
   }
-};
+  return (
+    <div>
+     <div> {anecdotes[selected]} </div>
+      <button onClick={nappula}>next anecdote</button>
+    </div>
+  )
+}
 
-export default App;
+export default App
