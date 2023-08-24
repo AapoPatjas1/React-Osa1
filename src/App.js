@@ -77,7 +77,7 @@ const App = () => {
           
         <tr>
           <th>
-            <h1>Statistiikka</h1>
+           <h1>Statistiikat</h1>
           </th>
         </tr>        
         <tr>
