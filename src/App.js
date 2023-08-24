@@ -1,3 +1,4 @@
+import { toBeDisabled } from '@testing-library/jest-dom/matchers';
 import React, { useState } from 'react';
 const Button = (props) =>{
   return (
@@ -10,16 +11,15 @@ return (
   <p>{props.text} {props.value}</p>
 
 )
+
 }
 const Statistics = (props) => {
   return(
     <div>
-      <h2>Statistiikka</h2>
-      <StatisticLine text="good" value ={props.total} />
-      <StatisticLine text="neutral" value ={props.average} />
-      <StatisticLine text="bad" value ={props.positivePercentage} />
-     
-    </div>
+      <StatisticLine text="all" value ={props.total} />
+      <StatisticLine text="average" value ={props.average} />
+      <StatisticLine text="positive" value ={props.positivePercentage} />
+     </div>
   )
 }
 
@@ -43,42 +43,60 @@ const App = () => {
   const total = good + neutral + bad;
   const average = (good - bad) / total || 0;
   const positivePercentage = (good / total) * 100 || 0;
-  if (good == 0&&neutral == 0&&bad == 0) {
-    return ( <div><h1>Unicafe Asiakaspalaute</h1>
-     <Button text="Hyvä" moi={handleGoodClick}/>
-    <Button text="Neutraali" moi={handleNeutralClick}/>
-        <Button text="Huono" moi={handleBadClick}/>
-    <h1>Statistics</h1>
-    <p>no feedback given</p>
-    </div>
-    )
-  } else {
+  // if (good == 0&&neutral == 0&&bad == 0) {
+  //   return ( 
+  //     <div>
+  //       <h1>Unicafe Asiakaspalaute</h1>
+  //       <Button text="Hyvä" moi={handleGoodClick}/>
+  //       <Button text="Neutraali" moi={handleNeutralClick}/>
+  //       <Button text="Huono" moi={handleBadClick}/>
+  //       <h1>Statistics</h1>
+  //       <p>no feedback given</p>
+  //     </div>
+  //   )
+  // } else {
+
     return (
-      <div>
-        <h1>Unicafe Asiakaspalaute</h1>
-
-        <Button text="Hyvä" moi={handleGoodClick}/>
-        <Button text="Neutraali" moi={handleNeutralClick}/>
-        <Button text="Huono" moi={handleBadClick}/>
-
-       
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <h1>give feedback</h1>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+            <Button text="Hyvä" moi={handleGoodClick}/>
+            <Button text="Neutraali" moi={handleNeutralClick}/>
+            <Button text="Huono" moi={handleBadClick}/>
+            </td>
+          </tr>
       
-
-        <h2>Palautteet</h2>
+          
+        <tr>
+          <th>
+            <h1>Statistiikka</h1>
+          </th>
+        </tr>        
+        <tr>
+          <td>
         <StatisticLine text="Hyvä" value={good} />
         <StatisticLine text="Neutraali" value={neutral} />
         <StatisticLine text="Huono" value={bad} />
-        
-      <Statistics 
-        average={average}
-        total={total}
-        positivePercentage={positivePercentage}
-      />
-      </div>
+        <Statistics 
+          average={average}
+          total={total}
+          positivePercentage={positivePercentage}/>
+              </td>
+          </tr>
+      </tbody>
+      
+      </table>
     );
-  }
 
-  
+  // }
 };
 
 export default App;
