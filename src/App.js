@@ -12,30 +12,41 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
    
-  const [selected, setSelected] = useState(0)
-
-  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
-
-  const nappula = () => {
-    const numero = Math.floor(Math.random() * anecdotes.length)
-    setSelected(numero)
-  }
-
-  const äänestys = () => {
-    const newVotes = [...votes]
-    newVotes[selected] += 1
-    setVotes(newVotes)
-  }
-
+    const [selected, setSelected] = useState(0);
   
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
+
+  const numero = () => {
+    const randomNumber = Math.floor(Math.random() * anecdotes.length);
+    setSelected(randomNumber);
+   };
+
+   const Äänestys = () => {
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
+    setVotes(newVotes);
+  };
+
+ 
+
+    const mostVotedIndex = votes.indexOf(Math.max(...votes));
+
+  const mostVotedAnecdote = anecdotes[mostVotedIndex];
+
   return (
     <div>
-     <div> {anecdotes[selected]} </div>
-     <div>Has {votes[selected]} votes</div>
-      <button onClick ={äänestys}>Äänestä</button>
-      <button onClick={nappula}>next anecdote</button>
-    </div>
-  )
+      <h1>Anecdote of the day</h1>
+       <div>{anecdotes[selected]}</div>
+        <div>On {votes[selected]} ääntä</div>
+         <button onClick={Äänestys}>Vote</button>
+        <button onClick={numero}>Next Anecdote</button>
+       <h1>Anecdote with most votes</h1>
+      <div>
+       <p>{mostVotedAnecdote}</p>
+        <p>On {votes[mostVotedIndex]} ääntä</p>
+       </div>
+     </div>
+  );
 }
 
-export default App
+export default App;
