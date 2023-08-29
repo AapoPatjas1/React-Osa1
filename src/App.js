@@ -1,44 +1,5 @@
 import React from 'react';
-
-const Header = ({ otsikko }) => {
-  return <h1>{otsikko}</h1>;
-};
-
-const Part = (props) => {
-  return (
-    <p>
-      {props.nimi + " " + props.harjoitukset}
-    </p>
-  );
-};
-
-
-
-const Content = (props) => {
-  return(
-    <div>{props.osa.parts.map(part => <Part nimi={part.name} harjoitukset={part.exercises} />)}</div>
-  )
-} 
-const Total = (props) => {
-  return (
-    <p>Harjoitusten määrä  {props.osa.parts.reduce((total, part) => total + part.exercises, 0)}</p>
-    )
-  }
-const Course = (props) => {
-  return(
-    <div>
-      {
-        props.course.map(osa =>
-          <div>
-            <Header otsikko={osa.name} />
-            <Content osa={osa}/>
-            <Total osa={osa}/>  
-          </div>
-        )
-      }
-    </div>
-  )
-}
+import Course from './Course';
 
 const App = () => {
   const courses = [
@@ -78,7 +39,7 @@ const App = () => {
           id: 1
         },
         {
-          name: 'Middlewares',
+          name: 'Middlewares',  
           exercises: 7,
           id: 2
         }
