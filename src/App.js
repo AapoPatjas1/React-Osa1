@@ -11,9 +11,9 @@ const App = () => {
   };
 
   
-  const addPerson = (event) => {
+  const lisäähenkilö = (event) => {
     event.preventDefault();
-    const personExists = persons.some(person => person.name === newName);
+    const personExists = persons.some(person => person.name.toLowerCase() === newName.toLocaleLowerCase());
 
     if (personExists) {
       alert(`${newName} is already in the phonebook.`);
@@ -27,17 +27,22 @@ const App = () => {
   return (
     <div>
       <h2>Puhelinkirja</h2>
-      <form onSubmit={addPerson}>
+      <form onSubmit={lisäähenkilö}>
+
       <div>
+
       nimi: <input value={newName} onChange={Nimi} />
      </div>
    <div>
+
      <button type="submit">Lisää</button>
    </div>
+
     </form>
  <h2>Numerot</h2>
      <ul>
     {persons.map((person, index) => (
+
           <li key={index}>{person.name}</li>
         ))}
       </ul>
@@ -45,5 +50,5 @@ const App = () => {
   )
 
 }
-
+// window.alert(`${newName} is already added to phonebook`);
 export default App  
