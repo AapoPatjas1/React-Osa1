@@ -1,23 +1,59 @@
 import React, { useState } from 'react';
 
+const Filter = ({ searchQuery, handleSearchChange }) => (
+  <div>
+    Search: <input value={searchQuery} onChange={handleSearchChange} />
+  </div>
+);
+
+const PersonForm = ({ newName, newNumber, handleNameChange, handleNumberChange, addPerson }) => (
+  <form onSubmit={addPerson}>
+    <div>
+      name: <input value={newName} onChange={handleNameChange} />
+    </div>
+    <div>
+      number: <input value={newNumber} onChange={handleNumberChange} />
+    </div>
+    <div>
+      <button type="submit">Add</button>
+    </div>
+  </form>
+);
+
+const Persons = ({ filteredPersons }) => (
+  <div>
+    {filteredPersons.map((person, index) => (
+      <div key={index}>
+        {person.name} {person.number}
+      </div>
+    ))}
+  </div>
+);
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-1231244' },
-    // Add more initial persons if needed
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
-  const [searchQuery, setSearchQuery] = useState(''); // New state for search query
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const Nimi = (event) => {
+  const handleNameChange = (event) => {
     setNewName(event.target.value);
   };
 
-  const Numero = (event) => {
+  const handleNumberChange = (event) => {
     setNewNumber(event.target.value);
   };
 
-  const lisäähenkilö = (event) => {
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const addPerson = (event) => {
     event.preventDefault();
     const personExists = persons.some(
       (person) => person.name.toLowerCase() === newName.toLocaleLowerCase()
@@ -38,38 +74,24 @@ const App = () => {
     }
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
   const filteredPersons = persons.filter((person) =>
     person.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div>
-      <h2>Puhelinkirja</h2>
-      <div>
-        Hae: <input value={searchQuery} onChange={handleSearchChange} />
-      </div>
-      <h2>Lisää kirja</h2>
-      <form onSubmit={lisäähenkilö}>
-        <div>
-          nimi: <input value={newName} onChange={Nimi} />
-        </div>
-        <div>
-          numero: <input value={newNumber} onChange={Numero} />
-        </div>
-        <div>
-          <button type="submit">Lisää</button>
-        </div>
-      </form>
-      <h2>Numerot</h2>
-      {filteredPersons.map((person, index) => (
-        <div key={index}>
-          {person.name} {person.number}
-        </div>
-      ))}
+      <h2>Phonebook</h2>
+      <Filter searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+      <h3>Add a new</h3>
+      <PersonForm
+        newName={newName}
+        newNumber={newNumber}
+        handleNameChange={handleNameChange}
+        handleNumberChange={handleNumberChange}
+        addPerson={addPerson}
+      />
+      <h3>Numbers</h3>
+      <Persons filteredPersons={filteredPersons} />
     </div>
   );
 };
